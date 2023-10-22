@@ -186,10 +186,18 @@
 			   </div> {% endcomment %}
 
 			   {% for product in collection.products %}
-				{% if product.title == "Lean Lifestyle for Weight Loss" %}
-				  <!-- Your content to display for the product with the specific name -->
+				{% assign hasDiscount300Tag = false %}
+				{% for tag in product.tags %}
+				  {% if tag == 'discount300' %}
+					{% assign hasDiscount300Tag = true %}
+				  {% endif %}
+				{% endfor %}
+				{% if hasDiscount300Tag %}
+				  <!-- Your content to display for products with the 'discount300' tag -->
 				  <div>
-					test
+					<h2>{{ product.title }}</h2>
+					<p>{{ product.description }}</p>
+					<p>Price: {{ product.price | money }}</p>
 				  </div>
 				{% endif %}
 			  {% endfor %}
