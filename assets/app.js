@@ -13,6 +13,7 @@ $(document)
 
 });
 
+
 $(document)
 .on('shopify:section:load', function(e){
 
