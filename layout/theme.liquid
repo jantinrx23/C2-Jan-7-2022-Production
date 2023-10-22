@@ -75,6 +75,7 @@
   <script defer src="{{ 'vendors.js' | asset_url }}"></script>
   <script defer src="{{ 'utilities.js' | asset_url }}"></script>
   <script defer src="{{ 'app.js' | asset_url }}"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
   {%- if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 -%}
     <script defer src="{{ 'currencyConversion.js' | asset_url }}"></script>
