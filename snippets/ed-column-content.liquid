@@ -1,0 +1,77 @@
+<div class="ed-content">
+  <div class="flex-row">
+    <div class="left-content">
+      <div class="content-inner">
+        {% unless block.settings.question_1 == blank %}
+        <div class="question-answer">
+          <h4>{{block.settings.question_1}}</h4>
+          <div>{{block.settings.answer_1}}</div>
+        </div>
+        {% endunless %}
+        
+        {% unless block.settings.question_2 == blank %}
+        <div class="question-answer">
+          <h4>{{block.settings.question_2}}</h4>
+          <div>{{block.settings.answer_2}}</div>
+        </div>
+        {% endunless %}
+        
+        {% unless block.settings.question_3 == blank %}
+        <div class="question-answer">
+          <h4>{{block.settings.question_3}}</h4>
+          <div>{{block.settings.answer_3}}</div>
+        </div>
+        {% endunless %}
+        
+        {% unless block.settings.button_label == blank %}
+        <div class="question-answer button-wrap">
+          <a href="{{block.settings.button_link}}" class="btn theme-btn">{{block.settings.button_label}}</a>
+        </div>
+        {% endunless %}
+        
+      </div>
+    </div>
+    
+    <div class="right-content">
+      <div class="content-inner">
+          
+          <div class="icon-text-block">
+            {% unless block.settings.icon_1 == blank %}
+            <img src="{{ block.settings.icon_1 | img_url : 'master' }}">
+            {% endunless %}
+            {% unless block.settings.icon_heading_1 == blank %}
+            <h4>{{block.settings.icon_heading_1}}</h4>
+            {% endunless %}
+            {% unless block.settings.icon_text_1 == blank %}
+            <p>{{block.settings.icon_text_1}}</p>
+            {% endunless %}
+          </div>
+          
+          <div class="icon-text-block">
+            {% unless block.settings.icon_2 == blank %}
+            <img src="{{ block.settings.icon_2 | img_url : 'master' }}">
+            {% endunless %}
+            {% unless block.settings.icon_heading_2 == blank %}
+            <h4>{{block.settings.icon_heading_2}}</h4>
+            {% endunless %}
+            {% unless block.settings.icon_text_2 == blank %}
+            <p>{{block.settings.icon_text_2}}</p>
+            {% endunless %}
+          </div>
+        
+          <div class="icon-text-block">
+            {% unless block.settings.icon_3 == blank %}
+            <img src="{{ block.settings.icon_3 | img_url : 'master' }}">
+            {% endunless %}
+            {% unless block.settings.icon_heading_3 == blank %}
+            <h4>{{block.settings.icon_heading_3}}</h4>
+            {% endunless %}
+            {% unless block.settings.icon_text_3 == blank %}
+            <p>{{block.settings.icon_text_3}}</p>
+            {% endunless %}
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

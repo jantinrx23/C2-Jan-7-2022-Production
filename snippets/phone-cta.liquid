@@ -1,0 +1,17 @@
+<div class="cta-wrapper {% if block.settings.color_mode == 'dark-mode' %}dark-mode{% endif %}">
+  <div class="section">
+    <div class="cta-row">
+      <div class="cta-content">
+        <h2>{{ block.settings.heading }}</h2>
+        <h3>{{ block.settings.heading_2 }}</h3>
+        <h4>{{ block.settings.heading_3 }}</h4>
+      </div>
+      <div class="cta-btn-wrap">
+        {% unless block.settings.cta_btn_url == blank %}
+        <a href="{{ block.settings.cta_btn_url }}">{{ block.settings.cta_btn_title }}</a>
+        {% endunless %}
+        <p>{{ block.settings.cta_note }}</p>
+      </div>
+    </div>
+  </div>
+</div>

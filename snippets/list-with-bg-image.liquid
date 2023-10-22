@@ -1,0 +1,35 @@
+<div class="bg-list-wrapper block-{{block.id}}" style="background-image: url({{block.settings.background_image | img_url : 'master'}});">
+  <div class="section">
+      <div class="bg-list-row {% if block.settings.text-alignment == 'right-text' %}right-text{% endif %}">
+        <div class="bg-list-content">
+          {% unless block.settings.heading == blank %}
+          <p>{{ block.settings.heading }}</p>
+          {% endunless %}
+        </div>
+        <div class="bg-list-wrap">
+          <ul>
+            {% unless block.settings.text_1 == blank %}
+            <li><img src="{{ 'check-icon-2.svg' | asset_url }}"> {{ block.settings.text_1 }}</li>
+            {% endunless %}
+            {% unless block.settings.text_2 == blank %}
+            <li><img src="{{ 'check-icon-2.svg' | asset_url }}"> {{ block.settings.text_2 }}</li>
+            {% endunless %}
+            {% unless block.settings.text_3 == blank %}
+            <li><img src="{{ 'check-icon-2.svg' | asset_url }}"> {{ block.settings.text_3 }}</li>
+            {% endunless %}
+            {% unless block.settings.text_4 == blank %}
+            <li><img src="{{ 'check-icon-2.svg' | asset_url }}"> {{ block.settings.text_4 }}</li>
+            {% endunless %}
+            {% unless block.settings.text_5 == blank %}
+            <li><img src="{{ 'check-icon-2.svg' | asset_url }}"> {{ block.settings.text_5 }}</li>
+            {% endunless %}
+          </ul>
+        </div>
+        {% if block.settings.show_btn %}
+        <div class="bg-list-btn-wrap">
+          <a href="{{ block.settings.btn_url }}">{{ block.settings.btn_title }}</a>
+        </div>
+        {% endif %}
+      </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+{% if search.results == empty %}
+<div class="search-box-wrap">
+  <h2 class="main-heading">{{ section.settings.heading_text }}</h2>
+  <div class="section">
+  <div class="search-box header__search">
+    <form class="header__search-form search-form" action="{{ routes.search_url }}">
+      {% if settings.search_option != 'everything' %}
+      <input class="visuallyhidden" type="text" name="type" value="product" />
+      {% endif %}
+      <div class="field has-addons">
+        <div class="control header__search-bar is-relative">
+          <ul class="predictive-results"></ul>
+          <input class="input" id="q" type="text" name="q" placeholder="ENTER YOUR PRESCRIPTION HERE" value="{{ search.terms }}" x-webkit-speech autocapitalize="off" autocomplete="off" autocorrect="off" />
+        </div>
+        <div class="control">
+          <button class="button header__search-button">Go</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  {% if section.settings.show_keywords %}
+  <div class="commonly-searched-wrap">
+  	<h3>{{ section.settings.heading }}</h3>
+    <div class="searched-words-wrap">
+      <ul>
+        {% for block in section.blocks %}
+        {% assign pHandle = block.settings.product %}
+        {%- assign product = all_products[pHandle] -%}
+        <li>
+          <a href="{{product.url}}">{{block.settings.product_label}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Search Box",
+    "settings": [
+		{
+			"type": "text",
+			"id": "heading_text",
+			"label": "Heading Text",
+			"default": "Find your prescription and start saving money."
+		},
+		{
+			"type": "checkbox",
+			"id": "show_keywords",
+			"label": "Show Commonly Searched Words",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Commonly Searched - Heading",
+			"default": "Commonly Searched Prescriptions"
+		}
+	],
+	"blocks": [
+	{
+		"type": "product",
+		"name": "Products",
+		"settings": [
+          {
+              "type": "product",
+              "id": "product",
+              "label": "Product"
+          },
+		  {
+              "type": "text",
+              "id": "product_label",
+              "label": "Label"
+          }
+		]
+	}
+	
+	]
+  }
+{% endschema %}

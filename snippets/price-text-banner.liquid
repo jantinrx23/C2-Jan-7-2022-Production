@@ -1,0 +1,30 @@
+<div class="price-text-banner" style="background-image: url({{block.settings.background_image | img_url : 'master'}});">
+          <div class="section">
+            <div class="container">
+              <div class="price-text-wrap left-text">
+                <h3>{{ block.settings.heading }}</h3>
+                <h2>{{ block.settings.price }}</h2>
+                <p>{{ block.settings.price_label }}</p>
+                {% if block.settings.show_check %}
+                <span class="check-wrap">
+                    <img src="{{ 'check-icon.svg' | asset_url }}">
+                </span>
+                {% endif %}
+              </div>
+
+              <div class="price-text-wrap right-text">
+                <h3>{{ block.settings.right_heading }}</h3>
+                <h2>{{ block.settings.right_price }}</h2>
+                <p>{{ block.settings.right_price_label }}</p>
+                {% if block.settings.right_show_check %}
+                <span class="check-wrap">
+                    <img src="{{ 'check-icon.svg' | asset_url }}">
+                </span>
+                {% endif %}
+              </div>
+
+
+            </div>
+          </div>
+          <p class="disclaimer-text">{{ block.settings.disclaimer_text }}</p>
+        </div>

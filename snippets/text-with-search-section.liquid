@@ -1,0 +1,29 @@
+<div class="text-search-wrapper">
+  <div class="section">
+    <div class="text-search-row">
+      <div class="search-text">
+      {% unless block.settings.search_title == blank %}
+        <h2>{{ block.settings.search_title }}</h2>
+      {% endunless %}
+        
+      <img src="{{'right-arrow.svg' | asset_url }}" class="right-arrow">
+      </div>
+      <div class="search-box header__search">
+        <form class="header__search-form search-form" action="{{ routes.search_url }}">
+          {% if settings.search_option != 'everything' %}
+          <input class="visuallyhidden" type="text" name="type" value="product" />
+          {% endif %}
+          <div class="field has-addons">
+            <div class="control header__search-bar is-relative">
+              <ul class="predictive-results"></ul>
+              <input class="input" id="q" type="text" name="q" placeholder="ENTER YOUR PRESCRIPTION HERE" value="{{ search.terms }}" x-webkit-speech autocapitalize="off" autocomplete="off" autocorrect="off" />
+            </div>
+            <div class="control">
+              <button class="button header__search-button">Go</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

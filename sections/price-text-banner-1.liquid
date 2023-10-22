@@ -1,0 +1,105 @@
+<div class="price-text-banner" style="background-image: url({{section.settings.background_image | img_url : 'master'}});">
+  <div class="section">
+    <div class="container">
+      <div class="price-text-wrap left-text">
+        <h3>{{ section.settings.heading }}</h3>
+        <h2>{{ section.settings.price }}</h2>
+        <p>{{ section.settings.price_label }}</p>
+        {% if section.settings.show_check %}
+        <span class="check-wrap">
+        	<img src="{{ 'check-icon.svg' | asset_url }}">
+        </span>
+        {% endif %}
+      </div>
+      
+      <div class="price-text-wrap right-text">
+        <h3>{{ section.settings.right_heading }}</h3>
+        <h2>{{ section.settings.right_price }}</h2>
+        <p>{{ section.settings.right_price_label }}</p>
+        {% if section.settings.right_show_check %}
+        <span class="check-wrap">
+        	<img src="{{ 'check-icon.svg' | asset_url }}">
+        </span>
+        {% endif %}
+      </div>
+      
+      
+    </div>
+  </div>
+  <p class="disclaimer-text">{{ section.settings.disclaimer_text }}</p>
+</div>
+
+{% schema %}
+  {
+    "name": "Banner with Price Text",
+    "settings": [
+		{
+			"type": "image_picker",
+			"id": "background_image",
+			"label": "Background Image"
+		},
+		{
+			"type": "header",
+			"content": "Left Text"
+		},
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Heading",
+			"default": "TIN Rx"
+		},
+		{
+			"type": "text",
+			"id": "price",
+			"label": "Price",
+			"default": "$5"
+		},
+		{
+			"type": "textarea",
+			"id": "price_label",
+			"label": "Label",
+			"default": "30 days of Astrovastatin (Lipitor)."
+		},
+		{
+			"type": "checkbox",
+			"id": "show_check",
+			"label": "Show Check",
+			"default": true
+		},
+		{
+			"type": "header",
+			"content": "Right Text"
+		},
+		{
+			"type": "text",
+			"id": "right_heading",
+			"label": "Heading",
+			"default": "Chain Pharmacy"
+		},
+		{
+			"type": "text",
+			"id": "right_price",
+			"label": "Price",
+			"default": "$91"
+		},
+		{
+			"type": "textarea",
+			"id": "right_price_label",
+			"label": "Label",
+			"default": "30 days of Lipitor."
+		},
+		{
+			"type": "checkbox",
+			"id": "right_show_check",
+			"label": "Show Check",
+			"default": false
+		},
+		{
+			"type": "textarea",
+			"id": "disclaimer_text",
+			"label": "Disclaimer Text",
+			"default": "*Data based on average retail price of atorvastatin (Lipitor), subject to change"
+		}
+	]
+  }
+{% endschema %}
