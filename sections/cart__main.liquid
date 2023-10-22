@@ -177,14 +177,6 @@
             </div>
           {% endfor %}
 
-		  {% for product in collections.my_collection.products %}
-			{% if 'discount300' in product.tags %}
-				<div class="flex justify-center">
-					<p class="text-2xl font-bold text-[#77bb41] ">You Save $300!!!</p>
-				 </div>
-			{% endif %}
-		  {% endfor %}
-			
           <div class="cart__cost-summary container is-flex-column">
             <div class="column eight offset-by-eight medium-down--one-whole">
               {%- if cart.cart_level_discount_applications != blank -%}
