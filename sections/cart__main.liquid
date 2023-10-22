@@ -41,6 +41,12 @@
     </div>
   </div>
 
+  {% for tag in product.tags %}
+	{% if tag contains 'discount300' %}
+	  Display this because the product has 'discount300' tag
+	{% endif %}
+  {% endfor %}
+
   <div class="cart__form {% if cart.item_count == 0 %}is-hidden{% endif %}">
     <form action="{{ routes.cart_url }}" method="post" id="cart_form" class="{% if cart.item_count == 0 %}visuallyhidden{% endif %} quantity-box-enabled-{{ section.settings.display_product_quantity_cart }}">
 
