@@ -177,6 +177,7 @@
             </div>
           {% endfor %}
 
+          {% for product in collections.my_collection.products %}
             <div class="grid grid-cols-3">
                 <div></div>
                 <div></div>
@@ -184,7 +185,7 @@
 					<p class="text-2xl font-bold text-[#77bb41] ">You Save $300!!!</p>
 				 </div>
             </div>  
-                
+           {% endfor %}      
 
           <div class="cart__cost-summary container is-flex-column">
             <div class="column eight offset-by-eight medium-down--one-whole">
