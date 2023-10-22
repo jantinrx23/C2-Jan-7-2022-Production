@@ -178,9 +178,9 @@
           {% endfor %}
 
  
-       
-		  {% for tag in product.tags %}
-			{% if tag == 'discount300' %}
+
+		  {% for product in collection.products %}
+			{% if 'discount300' in product.tags %}
 				<div class="grid grid-cols-3">
 					<div></div>
 					<div></div>
