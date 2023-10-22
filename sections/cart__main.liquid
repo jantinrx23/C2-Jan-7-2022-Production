@@ -185,22 +185,14 @@
 					</div>
 			   </div> {% endcomment %}
 
-			   {% for product in collection.products %}
-				{% assign hasDiscount300Tag = false %}
-				{% for tag in product.tags %}
-				  {% if tag == "discount300" %}
-					{% assign hasDiscount300Tag = true %}
-				  {% endif %}
-				{% endfor %}
-				{% if hasDiscount300Tag %}
-				  <!-- Your content to display for products with the 'discount300' tag -->
-				  <div>
-					<h2>{{ product.title }}</h2>
-					<p>{{ product.description }}</p>
-					<p>Price: {{ product.price | money }}</p>
-				  </div>
-				{% endif %}
-			  {% endfor %}
+			   {% if product.tags contains 'discount300' %}
+				<div class="grid grid-cols-3">
+					<div></div>
+					<div></div>
+					<div class="flex justify-center">
+					  <p class="text-2xl font-bold text-[#77bb41]">You Save $300!!!!</p>
+					</div>
+			  {% endif %}
           
           <div class="cart__cost-summary container is-flex-column">
             <div class="column eight offset-by-eight medium-down--one-whole">
