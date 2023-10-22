@@ -188,7 +188,7 @@
 			   {% for product in collection.products %}
 				{% assign hasDiscount300Tag = false %}
 				{% for tag in product.tags %}
-				  {% if tag == 'discount300' %}
+				  {% if tag == "discount300" %}
 					{% assign hasDiscount300Tag = true %}
 				  {% endif %}
 				{% endfor %}
