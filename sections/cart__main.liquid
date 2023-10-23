@@ -418,6 +418,14 @@
 <script src="{{ 'z__jsCart.js' | asset_url }}"></script>
 <script src="{{ 'z__jsShippingCalculator.js' | asset_url }}"></script>
 
+<script>
+        $(document).ready(function() {
+            $('.close').on('click', function() {
+                location.reload();
+            });
+        });
+</script>
+
 {% schema %}
 
 {
