@@ -26,7 +26,7 @@
   
   
   {% form 'product', product, data-productid: product.id %}
-<div class="flex-row" style="background-color: red;">
+<div class="flex-row">
     <div class="product-options-column ">
         {% if product.variants.size > 1 %}
           {% if product.options.size > 1 %}
@@ -160,7 +160,7 @@
             {% endif %}
           </p>
       
-    <div class="purchase-details test">
+    <div class="purchase-details">
       {% for tag in product.tags %}
       {% if tag == 'quantity' %}
       	{% assign showQty = true%}
