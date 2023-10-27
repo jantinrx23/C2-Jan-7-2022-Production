@@ -99,11 +99,15 @@
 
 {% else %}
 {% comment %} Product - classic (default) {% endcomment %}
-{% for tag in product.tags %}
+{% comment %} {% for tag in product.tags %}
 	{% if tag == "wholesale-test" %}
 		<p>error here</p>
 	{% else %}	
-		<div style="background-color: blue;" id="template-{{ template | replace: '.', '-' | handle }}" class="shopify-section product-page section__wrapper">
+		
+	{% endif %}
+{% endfor %} {% endcomment %}
+
+<div style="background-color: blue;" id="template-{{ template | replace: '.', '-' | handle }}" class="shopify-section product-page section__wrapper">
 		    {% comment %} Breadcrumbs and navigation {% endcomment %}
 		    <section class="section
 		                    is-width-standard
@@ -154,8 +158,6 @@
 		      </div>
 		    </section>
 	  	</div>
-	{% endif %}
-{% endfor %}
 
   
 {% endif %}
