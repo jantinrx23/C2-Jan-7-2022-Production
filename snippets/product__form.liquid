@@ -222,9 +222,9 @@
 				{% else %}
 					<p>SIGN IN TO YOUR WHOLESALE ACCOUNT TO SIGNIN</p>
 				{% endif %}
-
-			{% else %}
-
+			
+			{% elsif tag =! "wholesale-test" %}
+				
 				<div class="purchase-details test">
 					{% for tag in product.tags %}
 					{% if tag == 'quantity' %}
@@ -266,6 +266,8 @@
 					  {% endif %}
 					</div>
 				</div>
+				
+			{% else %}				
 
 			{% endif %}
 		  {% endfor %} 
