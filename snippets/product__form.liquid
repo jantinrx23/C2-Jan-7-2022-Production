@@ -161,14 +161,20 @@
           </p>
 
 		  {% if customer %}
-			<!-- Content to display when the user is logged in -->
+		
 			<p>Welcome, {{ customer.first_name }}!</p>
 		  {% else %}
-			<!-- Content to display when the user is not logged in -->
+		
 			<p>This product is available for wholesalers only. <br><a href="#">SIGN IN</a></p>
 		  {% endif %}
 
-		  {% for tag in product.tags %}
+		  {% if customer.tags contains 'wholesaler' %}
+
+			<p>Welcome, Wholesaler!</p>
+		  {% endif %}
+		  
+
+		  {% comment %} {% for tag in product.tags %}
 			{% if tag == "wholesaler" %}
 				<div class="purchase-details test">
 					{% for tag in product.tags %}
@@ -214,7 +220,7 @@
 			{% else %}
 			    <p>ONLY AVAILABLE FOR WHOLESALERS</p>	
 			{% endif %}
-		  {% endfor %}
+		  {% endfor %} {% endcomment %}
       
     
   
