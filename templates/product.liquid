@@ -7,7 +7,7 @@
 
 {% if settings.product_layout == 'sections' %}
 {% comment %} Product - sections {% endcomment %}
-  <div id="template-{{ template | replace: '.', '-' | handle }}" class="shopify-section product-page">
+  <div style="background-color: green;" id="template-{{ template | replace: '.', '-' | handle }}" class="shopify-section product-page">
     <section class="section__wrapper
                     section
                     is-width-wide
@@ -99,7 +99,7 @@
 
 {% else %}
 {% comment %} Product - classic (default) {% endcomment %}
-  <div id="template-{{ template | replace: '.', '-' | handle }}" class="shopify-section product-page section__wrapper">
+  <div style="background-color: blue;" id="template-{{ template | replace: '.', '-' | handle }}" class="shopify-section product-page section__wrapper">
     {% comment %} Breadcrumbs and navigation {% endcomment %}
     <section class="section
                     is-width-standard
