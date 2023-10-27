@@ -10,7 +10,7 @@
 
 {% assign variant = product.selected_or_first_available_variant %}
 
-<div style="background-color: green;" class="clearfix product_form init smart-payment-button--{{ show_payment_button }} {% if product.variants.size > 1 or product.options.size > 1 %}product_form_options{% endif %} product_form--{{ settings.product_form_style }}"
+<div class="clearfix product_form init smart-payment-button--{{ show_payment_button }} {% if product.variants.size > 1 or product.options.size > 1 %}product_form_options{% endif %} product_form--{{ settings.product_form_style }}"
       id="product-form-{{ product.id }}"
       data-product-form
       data-money-format="{{ shop.money_format }}"
@@ -26,7 +26,7 @@
   
   
   {% form 'product', product, data-productid: product.id %}
-<div class="flex-row" style="background-color: red;">
+<div class="flex-row">
     <div class="product-options-column ">
         {% if product.variants.size > 1 %}
           {% if product.options.size > 1 %}
