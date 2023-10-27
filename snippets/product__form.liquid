@@ -10,233 +10,222 @@
 
 {% assign variant = product.selected_or_first_available_variant %}
 
-{% for tag in product.tags %}
-	
-	{% if tag == "wholesale-test" %}
-			<p>error</p>
-    {% else %}
-			<div class="clearfix product_form init smart-payment-button--{{ show_payment_button }} {% if product.variants.size > 1 or product.options.size > 1 %}product_form_options{% endif %} product_form--{{ settings.product_form_style }}"
-				id="product-form-{{ product.id }}"
-				data-product-form
-				data-money-format="{{ shop.money_format }}"
-				data-shop-currency="{{ shop.currency }}"
-				data-select-id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}"
-				data-enable-state="{% if template contains 'product' %}true{% else %}false{% endif %}"
-				data-product="{{ product | json | escape }}"
-				{% if settings.limit_quantity or settings.display_inventory_left %}
-				  data-variant-inventory='[{%- for v in product.variants -%}{"id":{{v.id}},"inventory_quantity":{{v.inventory_quantity}},"inventory_management":"{{v.inventory_management}}","inventory_policy":"{{v.inventory_policy}}"}{% if forloop.last == false %},{% endif %}{%- endfor -%}]'
-				{% endif %}
-				data-product-id="{{ product.id }}"
-				>
+<div class="clearfix product_form init smart-payment-button--{{ show_payment_button }} {% if product.variants.size > 1 or product.options.size > 1 %}product_form_options{% endif %} product_form--{{ settings.product_form_style }}"
+      id="product-form-{{ product.id }}"
+      data-product-form
+      data-money-format="{{ shop.money_format }}"
+      data-shop-currency="{{ shop.currency }}"
+      data-select-id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}"
+      data-enable-state="{% if template contains 'product' %}true{% else %}false{% endif %}"
+      data-product="{{ product | json | escape }}"
+      {% if settings.limit_quantity or settings.display_inventory_left %}
+        data-variant-inventory='[{%- for v in product.variants -%}{"id":{{v.id}},"inventory_quantity":{{v.inventory_quantity}},"inventory_management":"{{v.inventory_management}}","inventory_policy":"{{v.inventory_policy}}"}{% if forloop.last == false %},{% endif %}{%- endfor -%}]'
+      {% endif %}
+      data-product-id="{{ product.id }}"
+      >
+  
+  
+  {% form 'product', product, data-productid: product.id %}
+<div class="flex-row" style="background-color: red;">
+    <div class="product-options-column ">
+        {% if product.variants.size > 1 %}
+          {% if product.options.size > 1 %}
+            <div class="select-container">
+                {% if type == 'quickshop' %}
+                  <div class="select">
+                {% endif %}
+                <select id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}" name="id" data-productid="{{ product.id }}" class="multi_select" data-variant-selector>
+                  {% for v in product.variants %}
+                    <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-image-id="{{ v.featured_media.id }}" data-sku="{{ v.sku }}">{{ v.title }}</option>
+                  {% endfor %}
+                </select>
+                      
+                {% if type == 'quickshop' %}
+                  </div>
+                {% endif %}
+            </div>
+          {% elsif product.options.size == 1 and product.variants.size > 1 or product.options.size == 1 and product.options[0] != "Title" %}
+            <div class="select-container">
+              <label class="label">{{ product.options[0] }}</label>
+              <div>
+                {% if type == 'quickshop' %}
+                  <div class="select">
+                {% endif %}
+                <select id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}" name="id" data-productid="{{ product.id }}" data-variant-selector>
+                  {% for v in product.variants %}
+                    <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-image-id="{{ v.featured_media.id }}" data-sku="{{ v.sku }}">{{ v.title }}</option>
+                  {% endfor %}
+                </select>
+                    
+                {% if type == 'quickshop' %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% else %}
+          <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ variant.id }}" />
+        {% endif %}
 
+        {% if product.variants.size > 1 %}
+          {% if settings.product_form_style == "swatches" and product.variants.size > 1 or settings.product_form_style == "swatches" and product.options[0] != "Title" %}
+            <div class="swatch_options collection_swatches">
+              {% for option in product.options %}
+                {% include 'product__swatch', option: option %}
+              {% endfor %}
+            </div>
+          {% endif %}
+      <p class="options-instructions"><i class="fa fa-location-arrow" aria-hidden="true"></i> CLICK TO CHOOSE FORM, STRENGTH AND PACKAGE SIZE</p>
+        {% endif %}
+      
+      
 
-			{% form 'product', product, data-productid: product.id %}
-			<div class="flex-row">
-			  <div class="product-options-column ">
-				  {% if product.variants.size > 1 %}
-					{% if product.options.size > 1 %}
-					  <div class="select-container">
-						  {% if type == 'quickshop' %}
-							<div class="select">
-						  {% endif %}
-						  <select id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}" name="id" data-productid="{{ product.id }}" class="multi_select" data-variant-selector>
-							{% for v in product.variants %}
-							  <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-image-id="{{ v.featured_media.id }}" data-sku="{{ v.sku }}">{{ v.title }}</option>
-							{% endfor %}
-						  </select>
-								
-						  {% if type == 'quickshop' %}
-							</div>
-						  {% endif %}
-					  </div>
-					{% elsif product.options.size == 1 and product.variants.size > 1 or product.options.size == 1 and product.options[0] != "Title" %}
-					  <div class="select-container">
-						<label class="label">{{ product.options[0] }}</label>
-						<div>
-						  {% if type == 'quickshop' %}
-							<div class="select">
-						  {% endif %}
-						  <select id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}" name="id" data-productid="{{ product.id }}" data-variant-selector>
-							{% for v in product.variants %}
-							  <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-image-id="{{ v.featured_media.id }}" data-sku="{{ v.sku }}">{{ v.title }}</option>
-							{% endfor %}
-						  </select>
-							  
-						  {% if type == 'quickshop' %}
-							</div>
-						  {% endif %}
-						</div>
-					  </div>
-					{% endif %}
-				  {% else %}
-					<input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ variant.id }}" />
-				  {% endif %}
+  
+    
+    
+    </div>
 
-				  {% if product.variants.size > 1 %}
-					{% if settings.product_form_style == "swatches" and product.variants.size > 1 or settings.product_form_style == "swatches" and product.options[0] != "Title" %}
-					  <div class="swatch_options collection_swatches">
-						{% for option in product.options %}
-						  {% include 'product__swatch', option: option %}
-						{% endfor %}
-					  </div>
-					{% endif %}
-				<p class="options-instructions"><i class="fa fa-location-arrow" aria-hidden="true"></i> CLICK TO CHOOSE FORM, STRENGTH AND PACKAGE SIZE</p>
-				  {% endif %}
-				
-				
+  
+  <div class="product-buy-box">
+    
+    {% if product.available %}
+    	{% if variant.inventory_quantity > 0 %} 
+    		<p class="product-avail-status green">In Stock</p>
+    	{% else %}
+    		<p class="product-avail-status red">Out of Stock</p>
+    	{% endif %}
+    {%endif %}
+    
+    {% if product.available %}
+    {% if settings.display_inventory_left %}
+      <p class="items_left">
+        {% if variant.inventory_management != blank and variant.inventory_quantity > 0 %}
+          {% capture items_left_text %}
+            {% if variant.inventory_quantity == 1 %}
+              {{ 'products.product.items_left_count.one' | t }}
+            {% else %}
+              {{ 'products.product.items_left_count.other' | t }}
+            {% endif %}
+          {% endcapture %}
+          {% if variant.inventory_quantity <= settings.inventory_threshold %}
+            {{ variant.inventory_quantity }} {{ items_left_text }}
+          {% endif %}
+        {% endif %}
+      </p>
+    {% endif %}
+  
+	{% comment %} Price {% endcomment %}
+          <p class="modal_price subtitle">
+            {% if collection_handles contains 'coming-soon' %}
+              {% if settings.stickers_enabled == false %}
+                {{ 'collections.general.coming_soon' | t }}
+              {% endif %}
+            {% else %}
 
+              {% comment %} Sold out {% endcomment %}
+              <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
 
-			  
-			  
-			  </div>
+              {% comment %} Current price {% endcomment %}
+              <span class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
+                <span class="current_price {% if product.available == false %}hidden{% endif %}">
+                  {% if variant.price > 0 %}
+                    <span class="money">{{ variant.price | money }}</span>
+                  {% else %}
+                    {{ settings.free_price_text }}
+                  {% endif %}
+                </span>
+              </span>
 
+              {% comment %} Compare at (original) price {% endcomment %}
+              <span class="was-price">
+                {% if variant.price < variant.compare_at_price and variant.available %}
+                  <span class="money">{{ variant.compare_at_price | money }}</span>
+                {% endif %}
+              </span>
 
-			<div class="product-buy-box">
-			  
-			  {% if product.available %}
-				  {% if variant.inventory_quantity > 0 %} 
-					  <p class="product-avail-status green">In Stock</p>
-				  {% else %}
-					  <p class="product-avail-status red">Out of Stock</p>
-				  {% endif %}
-			  {%endif %}
-			  
-			  {% if product.available %}
-			  {% if settings.display_inventory_left %}
-				<p class="items_left">
-				  {% if variant.inventory_management != blank and variant.inventory_quantity > 0 %}
-					{% capture items_left_text %}
-					  {% if variant.inventory_quantity == 1 %}
-						{{ 'products.product.items_left_count.one' | t }}
-					  {% else %}
-						{{ 'products.product.items_left_count.other' | t }}
-					  {% endif %}
-					{% endcapture %}
-					{% if variant.inventory_quantity <= settings.inventory_threshold %}
-					  {{ variant.inventory_quantity }} {{ items_left_text }}
-					{% endif %}
-				  {% endif %}
-				</p>
-			  {% endif %}
+              {% comment %} Size chart {% endcomment %}
+              {% if settings.size_chart != blank or meta-size-chart %}
+                <a href="javascript:;" class="product__size-chart medium-down--hidden" data-fancybox data-src="#size-chart{{product.id}}" data-type="inline">{{ 'products.product.size_chart' | t }} {% include settings.icon, name: 'right-caret' %}</a>
+                {% include 'popup-size-chart', product_id: product.id %}
+              {% endif %}
 
-			  {% comment %} Price {% endcomment %}
-					<p class="modal_price subtitle">
-					  {% if collection_handles contains 'coming-soon' %}
-						{% if settings.stickers_enabled == false %}
-						  {{ 'collections.general.coming_soon' | t }}
-						{% endif %}
-					  {% else %}
+              {% comment %} Savings {% endcomment %}
+              {% if section.settings.display_savings %}
+                <span class="sale savings">
+                  {% if variant.price < variant.compare_at_price and variant.available %}
+                    {{ 'products.product.savings' | t }}  {{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}% (<span class="money">{{ variant.compare_at_price | minus: variant.price | money }}</span>)
+                  {% endif %}
+                </span>
+              {% endif %}
+            {% endif %}
+          </p>
+      
+    <div class="purchase-details">
+      {% for tag in product.tags %}
+      {% if tag == 'quantity' %}
+      	{% assign showQty = true%}
+      {% endif %}
+      {% endfor %}
+      
+      {% if settings.display_product_quantity and showQty == true %}
+        <div class="purchase-details__quantity product-quantity-box quantity-box--{{ settings.qty_box_style }}">
+          {% include 'quantity-box' %}
+        </div>
+      {% endif %}
+      
+      
+      {% comment %} Error message for add to cart action {% endcomment %}
+      <div class="cart-warning"></div>
+      <div class="purchase-details__buttons purchase-details__spb--{{ show_payment_button }}">
+        {% if settings.cart_action == 'reload_page' %}
+          <input type="hidden" name="return_to" value="back" />
+        {% elsif settings.cart_action == 'redirect_checkout' %}
+          <input type="hidden" name="return_to" value="/checkout" />
+        {% endif %}
 
-						{% comment %} Sold out {% endcomment %}
-						<span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
-
-						{% comment %} Current price {% endcomment %}
-						<span class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
-						  <span class="current_price {% if product.available == false %}hidden{% endif %}">
-							{% if variant.price > 0 %}
-							  <span class="money">{{ variant.price | money }}</span>
-							{% else %}
-							  {{ settings.free_price_text }}
-							{% endif %}
-						  </span>
-						</span>
-
-						{% comment %} Compare at (original) price {% endcomment %}
-						<span class="was-price">
-						  {% if variant.price < variant.compare_at_price and variant.available %}
-							<span class="money">{{ variant.compare_at_price | money }}</span>
-						  {% endif %}
-						</span>
-
-						{% comment %} Size chart {% endcomment %}
-						{% if settings.size_chart != blank or meta-size-chart %}
-						  <a href="javascript:;" class="product__size-chart medium-down--hidden" data-fancybox data-src="#size-chart{{product.id}}" data-type="inline">{{ 'products.product.size_chart' | t }} {% include settings.icon, name: 'right-caret' %}</a>
-						  {% include 'popup-size-chart', product_id: product.id %}
-						{% endif %}
-
-						{% comment %} Savings {% endcomment %}
-						{% if section.settings.display_savings %}
-						  <span class="sale savings">
-							{% if variant.price < variant.compare_at_price and variant.available %}
-							  {{ 'products.product.savings' | t }}  {{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}% (<span class="money">{{ variant.compare_at_price | minus: variant.price | money }}</span>)
-							{% endif %}
-						  </span>
-						{% endif %}
-					  {% endif %}
-					</p>
-				
-			  <div class="purchase-details">
-				{% for tag in product.tags %}
-				{% if tag == 'quantity' %}
-					{% assign showQty = true%}
-				{% endif %}
-				{% endfor %}
-				
-				{% if settings.display_product_quantity and showQty == true %}
-				  <div class="purchase-details__quantity product-quantity-box quantity-box--{{ settings.qty_box_style }}">
-					{% include 'quantity-box' %}
-				  </div>
-				{% endif %}
-				
-				
-				{% comment %} Error message for add to cart action {% endcomment %}
-				<div class="cart-warning"></div>
-				<div class="purchase-details__buttons purchase-details__spb--{{ show_payment_button }}">
-				  {% if settings.cart_action == 'reload_page' %}
-					<input type="hidden" name="return_to" value="back" />
-				  {% elsif settings.cart_action == 'redirect_checkout' %}
-					<input type="hidden" name="return_to" value="/checkout" />
-				  {% endif %}
-
-				  {% capture add_to_cart_label %}{% if collection_handles contains 'pre-order' %}{{ 'collections.general.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}{% endcapture %}
-				  <button type="{% if settings.cart_action == 'mini_cart' or settings.cart_action == 'drawer' %}button{% else %}submit{% endif %}" name="add" class="button {% if settings.cart_action == 'mini_cart' or settings.cart_action == 'drawer' %} ajax-submit {% endif %}action_button button--add-to-cart {% if show_payment_button %} action_button--secondary {% endif %}" data-label={{ add_to_cart_label | json }} data-add-to-cart-trigger>
-					{% if  settings.button_cart_icon != blank and settings.button_cart_icon_position == 'left' %}
-					  {% include settings.icon, name: settings.button_cart_icon, icon_class: 'icon--cart' %}
-					{% endif %}
-					<span class="text">{{ add_to_cart_label }}</span>
-					{% if  settings.button_cart_icon != blank and settings.button_cart_icon_position == 'right' %}
-					  {% include settings.icon, name: settings.button_cart_icon, icon_class: 'icon--cart icon--right' %}
-					{% endif %}
-					<svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
-					  <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
-					</svg>
-				  </button>
-				  {% if show_payment_button %}
-					{{ form | payment_button }}
-				  {% endif %}
-				</div>
-			  </div>
-
-			{% endif %}
-			  
-			  {% comment %} Vendor {% endcomment %}
-				  {% if section.settings.display_vendor %}
-					<p class="vendor">
-					  <span class="vendor">{{ product.vendor | link_to_vendor }}</span>
-					</p>
-				  {% endif %}
-			  
-			  {% unless section.settings.company_logo == blank %} 
-			  <div class="company-logo">
-				  <img src="{{section.settings.company_logo | img_url : 'master'}}" alt="{{section.settings.company_logo.alt}}">
-			  </div>
-			  {% endunless %} 
-
-			  
-			  <!--HERE-->
-			  
-			  <div class="trust-boxes">
-				  <img src="{{section.settings.trust_logo | img_url : 'master' }}" alt="{{section.settings.trust_logo}}">
-			   </div>
-			  
-			  
-
-			 </div>
-			{% endform %}
-			</div>			
-
-	{% endif %}
-
-	
-{% endfor %} 
-
+        {% capture add_to_cart_label %}{% if collection_handles contains 'pre-order' %}{{ 'collections.general.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}{% endcapture %}
+        <button type="{% if settings.cart_action == 'mini_cart' or settings.cart_action == 'drawer' %}button{% else %}submit{% endif %}" name="add" class="button {% if settings.cart_action == 'mini_cart' or settings.cart_action == 'drawer' %} ajax-submit {% endif %}action_button button--add-to-cart {% if show_payment_button %} action_button--secondary {% endif %}" data-label={{ add_to_cart_label | json }} data-add-to-cart-trigger>
+          {% if  settings.button_cart_icon != blank and settings.button_cart_icon_position == 'left' %}
+            {% include settings.icon, name: settings.button_cart_icon, icon_class: 'icon--cart' %}
+          {% endif %}
+          <span class="text">{{ add_to_cart_label }}</span>
+          {% if  settings.button_cart_icon != blank and settings.button_cart_icon_position == 'right' %}
+            {% include settings.icon, name: settings.button_cart_icon, icon_class: 'icon--cart icon--right' %}
+          {% endif %}
+          <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+            <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+          </svg>
+        </button>
+        {% if show_payment_button %}
+          {{ form | payment_button }}
+        {% endif %}
+      </div>
+    </div>
+  
+  {% endif %}
+    
+    {% comment %} Vendor {% endcomment %}
+        {% if section.settings.display_vendor %}
+          <p class="vendor">
+            <span class="vendor">{{ product.vendor | link_to_vendor }}</span>
+          </p>
+        {% endif %}
+    
+    {% unless section.settings.company_logo == blank %} 
+    <div class="company-logo">
+    	<img src="{{section.settings.company_logo | img_url : 'master'}}" alt="{{section.settings.company_logo.alt}}">
+    </div>
+    {% endunless %} 
+  
+    
+    <!--HERE-->
+    
+    <div class="trust-boxes">
+        <img src="{{section.settings.trust_logo | img_url : 'master' }}" alt="{{section.settings.trust_logo}}">
+ 	</div>
+    
+    
+ 
+   </div>
+{% endform %}
+   </div>
