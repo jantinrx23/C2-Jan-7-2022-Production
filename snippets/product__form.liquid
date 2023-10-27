@@ -160,6 +160,14 @@
             {% endif %}
           </p>
 
+		  {% if customer %}
+			<!-- Content to display when the user is logged in -->
+			<p>Welcome, {{ customer.first_name }}!</p>
+		  {% else %}
+			<!-- Content to display when the user is not logged in -->
+			<p>Please log in to view this content.</p>
+		  {% endif %}
+
 		  {% for tag in product.tags %}
 			{% if tag == "wholesaler" %}
 				<div class="purchase-details test">
