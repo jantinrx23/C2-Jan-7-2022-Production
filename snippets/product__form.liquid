@@ -160,22 +160,19 @@
             {% endif %}
           </p>
 
-		  {% if customer %}
-		
-			<p>Welcome, {{ customer.first_name }}!</p>
+		  {% comment %} {% if customer %}
+			
 		  {% else %}
 		
-			<p>This product is available for wholesalers only. <br><a href="#">SIGN IN</a></p>
 		  {% endif %}
 
 		  {% if customer.tags contains 'wholesaler' %}
-
 			<p>Welcome, Wholesaler!</p>
-		  {% endif %}
-		  
+		  {% endif %} {% endcomment %}
 
-		  {% comment %} {% for tag in product.tags %}
-			{% if tag == "wholesaler" %}
+		  
+		 {% for tag in product.tags %}
+			{% if tag == "wholesale-test" %}
 				<div class="purchase-details test">
 					{% for tag in product.tags %}
 					{% if tag == 'quantity' %}
@@ -220,11 +217,17 @@
 			{% else %}
 			    <p>ONLY AVAILABLE FOR WHOLESALERS</p>	
 			{% endif %}
-		  {% endfor %} {% endcomment %}
-      
+		  {% endfor %} 
+
+
+
+		 
+
+		  
+		  
+
     
-  
-  {% endif %}
+  		{% endif %}
     
     {% comment %} Vendor {% endcomment %}
         {% if section.settings.display_vendor %}
